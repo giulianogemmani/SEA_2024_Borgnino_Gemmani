@@ -32,8 +32,8 @@ for i=1:length(scopeBlocks)
     %     for
     %     filename = strcat(scopesubsys,'_',scopename,'.png');
     parts = strsplit(resultStr, '/');
-    firstpart=strjoin(parts,'_')
-    fileName = strcat(firstpart,'_',scopename,'.png');
+    firstpart=strjoin(parts,'_');
+    fileName = strcat(firstpart,'_',scopename,'.emf');
     %extractedPortion = scopesubsys((slashposition+1):length_string);
     %fileName=strcat(scopename,'.png')
     %fileName = strcat(scopename,'_',extractedPortion,'.png');
