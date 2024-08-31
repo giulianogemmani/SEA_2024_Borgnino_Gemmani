@@ -16,6 +16,19 @@ import sys
     
 import subprocess
 
+command = ["C:\\Windows\\SysWOW64\\cmd.exe"]
+
+# Run the command
+python_311 = subprocess.Popen(command, stdin=subprocess.PIPE)
+python_311.stdin.write('dir\n'.encode())
+python_311.stdin.flush()
+
+python_311.stdin.write('activate.bat\n'.encode())
+python_311.stdin.flush()
+
+python_311.stdin.write('python matlab_runner.py\n'.encode())
+python_311.stdin.flush()
+
 #python_311 = subprocess.Popen("C:\\Users\\borgn\\eclipse-workspace\\Scripts\\activate.bat",  shell = True)
 #command = ["C:\\Users\\borgn\\eclipse-workspace\\Scripts\\matlab_runner.py", ""]
 #python_311 = subprocess.Popen(command,  shell = True)
@@ -37,7 +50,10 @@ python_311 = subprocess.Popen("activate.bat", cwd = "C:\\Users\\borgn\\eclipse-w
 python_311.stdin.write('dir\n'.encode())
 python_311.stdin.flush()
 
-python_311.communicate('python matlab_runner.py\n'.encode())
+python_311.stdin.write('python matlab_runner.py\n'.encode())
+python_311.stdin.flush()
+
+#python_311.communicate('python matlab_runner.py\n'.encode())
 
 #python_311 = subprocess.run(["C:\\Users\\borgn\\eclipse-workspace\\Scripts\\activate.bat"],  shell = True)
 
