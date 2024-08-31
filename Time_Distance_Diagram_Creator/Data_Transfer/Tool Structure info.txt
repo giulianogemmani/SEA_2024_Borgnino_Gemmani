@@ -1,0 +1,45 @@
+==================================================
+**Time Distance Diagram Creator for PowerFactory**
+==================================================
+
+The Time Distance Diagram Creator (TDDC) for PowerFactory tool consists of the 
+following four folders:
+
+- calc_sw_interface (collection of the functions interfacing the TDDC logic with 
+DIgSILENT PowerFactory).
+- tracer (logic core of the tddc tool).
+- ui (the TDDC graphical user interface python files based on the WX library).
+
+
+*calc_sw_interface*
+-------------------
+
+It has been conceived as a collection of functions which allow to get and set 
+the power system element parameters, run LDF/SHC calculations, and retrieve information
+regarding the connection between the power system elements. 
+
+
+*tdcc*
+-----
+
+The folder contains the following 4 python files:
+
+
+- branch.py (definition of the Branch class which represent a list of connected 
+elements modelling a feeder between two bus bars).
+
+- Time_Distance_Diagram_Creator_PowerFactory.py (it contains the TDDC entry function).
+
+- grid.py (file containing  the Grid class which implements the power system 
+layout recognizing logic procedures).
+	
+- tracer_logic (it contains the main routine which calls in turn all other 
+components to create the system layout, run the required SHC, collect the tripping
+times, apply the setting validation rules and output the results).
+
+
+
+
+
+
+ 

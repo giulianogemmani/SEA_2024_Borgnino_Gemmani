@@ -1,0 +1,14 @@
+py -3.6 -m pip install wxPython for the 64 bit version that is not however suitable for Powerfactory
+py -3.6-32 -m pip install wxPython for the 32 bit version
+
+If the error about pyload appears dowload matplotlib library instead
+
+C:\Users\borgn\eclipse-workspace\Scripts>activate.bat
+
+(eclipse-workspace) C:\Users\borgn\eclipse-workspace\Scripts>cd "C:\Users\borgn\eclipse-workspace" instructions to enter in the virtual environment
+
+
+Instructions to configure the virtual env
+
+pip install numpy
+pip install matplotlib

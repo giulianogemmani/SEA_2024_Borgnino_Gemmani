@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2520cc41-9a00-4c85-9c6b-17ea6da29469}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>PSET\EPRI_PSET_PowerFactory.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>Global|PythonCore|3.6</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="calc_sw_interface\calculation_sw_interface.py" />
+    <Compile Include="calc_sw_interface\powerfactory_interface.py" />
+    <Compile Include="main.py" />
+    <Compile Include="PSET\about.py" />
+    <Compile Include="PSET\EPRI_PSET_PowerFactory.py" />
+    <Compile Include="PSET\helper.py" />
+    <Compile Include="PSET\PSET_Definitions.pw.py" />
+    <Compile Include="PSET\PSET_Definitions.py" />
+    <Compile Include="PSET\splashscreen.py" />
+    <Compile Include="Sean%27s files\about.py" />
+    <Compile Include="Sean%27s files\EPRI_PSET_PowerFactory.py" />
+    <Compile Include="Sean%27s files\helper.py" />
+    <Compile Include="Sean%27s files\PSET_Definitions.pw.py" />
+    <Compile Include="Sean%27s files\PSET_Definitions.py" />
+    <Compile Include="Sean%27s files\splashscreen.py" />
+    <Compile Include="sw_creator\calculation_sw_creator.py" />
+    <Compile Include="sw_creator\powerfactory_creator.py" />
+    <Compile Include="ui\configshc.py" />
+    <Compile Include="ui\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PSET\about_text.html" />
+    <Content Include="PSET\disclaimer.html" />
+    <Content Include="PSET\EPRI_logo.png" />
+    <Content Include="Sean%27s files\about_text.html" />
+    <Content Include="Sean%27s files\disclaimer.html" />
+    <Content Include="Sean%27s files\EPRI_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="calc_sw_interface" />
+    <Folder Include="PSET" />
+    <Folder Include="Sean%27s files" />
+    <Folder Include="sw_creator" />
+    <Folder Include="ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.6" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
