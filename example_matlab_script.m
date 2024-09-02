@@ -48,11 +48,12 @@ T_r=5e-4;
 
 %% Simulation
 
+% multiple scopes
+
 open_system('example_simulink_scheme2023b');
-sim('example_simulink_scheme2023b');
+sim('example_simulink_scheme2023b.slx');
 model = 'example_simulink_scheme2023b';
 
-%% Pick up scopes
 
 
 scopeBlocks = find_system(model, 'BlockType', 'Scope');
@@ -66,8 +67,10 @@ for i=1:length(scopeBlocks)
     scopeHandle = get_param(scopeBlocks{i}, 'Handle');
     % Retrieve the handle of the subsystem
     scopesubsys = get_param(scopeBlocks{i}, 'Parent');
+    
     % get all figure handles
-    figureHandle = findall(0, 'Type', 'figure', 'Name', get_param(scopeHandle, 'Name'));
+    figureHandles = findall(0, 'Type', 'figure', 'Name', get_param(scopeHandle, 'Name'));
+    figureHandle=figureHandles(1);
     
     % Save the scope figure as an image    
     scopename = get_param(scopeHandle, 'Name');
@@ -85,11 +88,11 @@ for i=1:length(scopeBlocks)
     %     filename = strcat(scopesubsys,'_',scopename,'.png');
     parts = strsplit(resultStr, '/');
     firstpart=strjoin(parts,'_');
-    fileName = strcat(firstpart,'_',scopename,'.jpg');
+    fileName = strcat(firstpart,'_',scopename,'.emf');
     %extractedPortion = scopesubsys((slashposition+1):length_string);
     %fileName=strcat(scopename,'.png')
     %fileName = strcat(scopename,'_',extractedPortion,'.png');
-    saveas(figure,fileName);
+    saveas(figureHandle,fileName);
 end
     
 % for i = 1:length(scopeBlocks)
@@ -139,33 +142,17 @@ end
 %     saveas(scopeHandle, ['scope_output_', num2str(i), '.png']);
 % end
 % 
-% close_system(model, 0); % Close the system without saving changes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+close_system(model, 0); % Close the system without saving changes
 
 
     
 %% CLOSING ALL FIGURES
-
-% close all
+clc
+close all
 
 %% CLOSE ALL SCOPES
-% shh = get(0,'ShowHiddenHandles');
-% set(0,'ShowHiddenHandles','On');
-% hscope = findobj(0,'Type','Figure','Tag','SIMULINK_SIMSCOPE_FIGURE');
-% close(hscope);
-% set(0,'ShowHiddenHandles',shh);
+shh = get(0,'ShowHiddenHandles');
+set(0,'ShowHiddenHandles','On');
+hscope = findobj(0,'Type','Figure','Tag','SIMULINK_SIMSCOPE_FIGURE');
+close(hscope);
+set(0,'ShowHiddenHandles',shh);
