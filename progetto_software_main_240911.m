@@ -1,4 +1,4 @@
-% multiple scopes
+function progetto_software_main_240911(modelname)
 % Define the folder where images will be saved
 fullFilePath=mfilename('fullpath');
 currentFileDirectory=fileparts(fullFilePath);
@@ -9,10 +9,10 @@ saveFolder=newDirectory;
 if ~exist(saveFolder,'dir')
     mkdir(saveFolder);
 end
-a=1
-open_system('PPC_scheme_04072024_a');
-sim('PPC_scheme_04072024_a');
-model = 'PPC_scheme_04072024_a';
+modelnameStr=convertCharsToStrings(modelname)
+open_system(modelnameStr);
+sim(modelnameStr);
+model = modelnameStr;
 scopeBlocks = find_system(model, 'BlockType', 'Scope');
 singlescope = scopeBlocks{1};
 allFigures = findall(0, 'Type', 'Figure');
@@ -41,10 +41,13 @@ for i=1:length(scopeBlocks)
     parts = strsplit(resultStr, '/');
     firstpart=strjoin(parts,'_');
     fileName = strcat(firstpart,'_',scopename,'.emf');
-    ImagePath=fullfile(saveFolder,fileName)
+    ImagePath=fullfile(saveFolder,fileName);
     %saveas(figureHandle,fileName);
     saveas(figureHandle,ImagePath)
 end
+end
+
+
     
 
 
