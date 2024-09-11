@@ -1,5 +1,15 @@
 % multiple scopes
-
+% Define the folder where images will be saved
+fullFilePath=mfilename('fullpath');
+currentFileDirectory=fileparts(fullFilePath);
+% attach a subdirectory to the current file directory
+newDirectory=fullfile(currentFileDirectory,'Pictures');
+saveFolder=newDirectory;
+% Create the folder if it doesn't exist
+if ~exist(saveFolder,'dir')
+    mkdir(saveFolder);
+end
+a=1
 open_system('PPC_scheme_04072024_a');
 sim('PPC_scheme_04072024_a');
 model = 'PPC_scheme_04072024_a';
@@ -31,7 +41,9 @@ for i=1:length(scopeBlocks)
     parts = strsplit(resultStr, '/');
     firstpart=strjoin(parts,'_');
     fileName = strcat(firstpart,'_',scopename,'.emf');
-    saveas(figureHandle,fileName);
+    ImagePath=fullfile(saveFolder,fileName)
+    %saveas(figureHandle,fileName);
+    saveas(figureHandle,ImagePath)
 end
     
 
