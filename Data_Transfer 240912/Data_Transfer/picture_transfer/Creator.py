@@ -52,11 +52,13 @@ for reqfile in REQUIRED_FILES:
 
 
 
-def run(pf_path = "D:\\Materiale Lavoro DIgSILENT\\PF 2019 (April 18)\\build\\Win32\\pf"):
+def run(pf_path = "C:\Program Files\Digsilent\PowerFactory"):
     
     # Create the program folder if it doesn't already exist.
     if not os.path.exists(PROGRAMFOLDER):
         os.makedirs(PROGRAMFOLDER)
+        
+    os.environ["PATH"] = r"C:\Program Files\Digsilent\PowerFactory;"+ os.environ["PATH"]    
         
     ## add the PYTHONPATH for the remote debugging    
     import sys
