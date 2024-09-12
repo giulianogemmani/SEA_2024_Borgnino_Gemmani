@@ -9,6 +9,7 @@ saveFolder=newDirectory;
 if ~exist(saveFolder,'dir')
     mkdir(saveFolder);
 end
+
 modelnameStr=convertCharsToStrings(modelname)
 open_system(modelnameStr);
 sim(modelnameStr);
@@ -18,6 +19,7 @@ singlescope = scopeBlocks{1};
 allFigures = findall(0, 'Type', 'Figure');
 clear allFigures;
 allFigures = findall(0, 'Type', 'Figure');
+
 for i=1:length(scopeBlocks)
     open_system(scopeBlocks{i});
     % Retrieve the handle of the Scope block
@@ -45,10 +47,30 @@ for i=1:length(scopeBlocks)
     %saveas(figureHandle,fileName);
     saveas(figureHandle,ImagePath)
 end
+
+
+%% CLOSING ALL FIGURES
+clc
+close all
+
+%% CLOSE ALL SCOPES
+shh = get(0,'ShowHiddenHandles');
+set(0,'ShowHiddenHandles','On');
+hscope = findobj(0,'Type','Figure','Tag','SIMULINK_SIMSCOPE_FIGURE');
+close(hscope);
+set(0,'ShowHiddenHandles',shh);
+
+%% Close model
+
+close_system(model, 0); % Close the system without saving changes
+
 end
 
 
+
+
     
+
 
 
 
