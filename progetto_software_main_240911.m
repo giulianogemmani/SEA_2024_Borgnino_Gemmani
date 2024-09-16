@@ -1,4 +1,5 @@
-function progetto_software_main_240911(modelname)
+function rsl=progetto_software_main_240911(modelname)
+%modelname = 'PPC_scheme_04072024_a'
 % Define the folder where images will be saved
 fullFilePath=mfilename('fullpath');
 currentFileDirectory=fileparts(fullFilePath);
@@ -10,7 +11,7 @@ if ~exist(saveFolder,'dir')
     mkdir(saveFolder);
 end
 
-modelnameStr=convertCharsToStrings(modelname)
+modelnameStr=convertCharsToStrings(modelname);
 open_system(modelnameStr);
 sim(modelnameStr);
 model = modelnameStr;
@@ -47,7 +48,7 @@ for i=1:length(scopeBlocks)
     %saveas(figureHandle,fileName);
     saveas(figureHandle,ImagePath)
 end
-
+rsl=0
 
 %% CLOSING ALL FIGURES
 clc
