@@ -521,7 +521,7 @@ class TransferLogic():
     
     def move_all_pictures_together(self, source_file_full_path, output_file_full_path):
         '''
-        move all pictures save by simulink (if present) in the "Pictures" directoryloacted
+        move all pictures save by simulink (if present) in the "Pictures" directory located
         at the same level where the output file template is
         '''
         source_file_path = os.path.dirname(source_file_full_path) + "\\Pictures"
