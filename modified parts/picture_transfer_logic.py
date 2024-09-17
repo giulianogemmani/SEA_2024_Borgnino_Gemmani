@@ -481,8 +481,8 @@ class TransferLogic():
                             self.shape2 = inlineshapes.Item(1).ConvertToShape()      
                         # magic numbers to crop the picture from the original PF wmf
                         # at home big screen 210/290
-                        new_picture.PictureFormat.CropBottom = 120 #2 #145 #120 #175
-                        new_picture.PictureFormat.CropRight = 170 # 5 #210 #170 #250
+                        new_picture.PictureFormat.CropBottom = 1 #2 #145 #120 #175
+                        new_picture.PictureFormat.CropRight = 1 # 5 #210 #170 #250
                         if two_pictures == True:
                             self.new_picture2.PictureFormat.CropBottom = 145 #2 #145 #120 #175
                             self.new_picture2.PictureFormat.CropRight = 210 # 5 #210 #170 #250
@@ -529,4 +529,5 @@ class TransferLogic():
         output_file_dir = os.path.dirname(output_file_full_path) + "\\Pictures"
         if source_file_path != output_file_dir:
             for file_name in file_names:
-                shutil.move(os.path.join(source_file_path, file_name), output_file_dir)
+                shutil.move(os.path.join(source_file_path, file_name),\
+                            os.path.join(output_file_dir, file_name))

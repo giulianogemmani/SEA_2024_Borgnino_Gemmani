@@ -160,9 +160,9 @@ def add_excel_chart_in_word(word_file_name, chart_path):
                         new_picture.PictureFormat.CropBottom = 0
                         new_picture.PictureFormat.CropRight = 0
                         new_picture.ScaleWidth = png_info[2] if len(png_info) > 2\
-                                                             else 85
+                                                             else 60
                         new_picture.ScaleHeight = png_info[3] if len(png_info) > 3\
-                                                             else 85                       
+                                                             else 75                       
                         shape.WrapFormat.Type = 4  # wdWrapFront
                         shape.WrapFormat.AllowOverlap = False
 #                         shape.Left = word.CentimetersToPoints(png_info[4] \
@@ -174,7 +174,7 @@ def add_excel_chart_in_word(word_file_name, chart_path):
                         print("ERROR: " + chart_path + '\\' + \
                         png_info[0] + ' ' + png_info[1] + '.png')
             except Exception as e:
-                print("ERROR: at doc line " + str(i) + "(of" + \
+                print("END OF FILE: at doc line " + str(i) + "(of " + \
                                      str(doc.Paragraphs.Count) + ")")
         if len(doc.TablesOfContents)>0:
             doc.TablesOfContents(1).Update()

@@ -228,7 +228,7 @@ class TransferLogic():
                     self.interface.set_echo_off()
                 diagram_path = picture_dir_path + '\\' + \
                                             self.interface.get_name_of(study_case)
-                # save the diagrams
+                # save the diagrams             
                 self.save_diagrams_as_wmf(window, path=diagram_path, create_copy=True)
                 self.interface.set_echo_on()       
             if self.output_detail >= OutputDetail.NORMAL:
@@ -256,6 +256,23 @@ class TransferLogic():
 # auxiliary function
 ###############################################################################
    
+    def create_copy_of(self, file_name, extension='.xls'):
+        '''
+        create a copy of the given faile name (if existing) adding the date/time in
+        the file name
+        '''
+        import os.path
+        from shutil import copyfile
+        from datetime import datetime
+        import time
+        if os.path.isfile(file_name):
+            file_date_str = time.ctime(os.path.getctime(file_name))
+            file_date_str = file_date_str.replace(':', '-')
+            new_file_name = file_name.replace(extension, file_date_str + extension)
+            copyfile(file_name, new_file_name)
+            return new_file_name
+        return ""
+    
     def save_diagrams_as_wmf(self, window, diagram_name='', path=None, \
                                     create_copy=True):
         '''
@@ -481,8 +498,8 @@ class TransferLogic():
                             self.shape2 = inlineshapes.Item(1).ConvertToShape()      
                         # magic numbers to crop the picture from the original PF wmf
                         # at home big screen 210/290
-                        new_picture.PictureFormat.CropBottom = 120 #2 #145 #120 #175
-                        new_picture.PictureFormat.CropRight = 170 # 5 #210 #170 #250
+                        new_picture.PictureFormat.CropBottom = 1 #2 #145 #120 #175
+                        new_picture.PictureFormat.CropRight = 1 # 5 #210 #170 #250
                         if two_pictures == True:
                             self.new_picture2.PictureFormat.CropBottom = 145 #2 #145 #120 #175
                             self.new_picture2.PictureFormat.CropRight = 210 # 5 #210 #170 #250
@@ -521,7 +538,7 @@ class TransferLogic():
     
     def move_all_pictures_together(self, source_file_full_path, output_file_full_path):
         '''
-        move all pictures save by simulink (if present) in the "Pictures" directory located
+        move all pictures save by simulink (if present) in the "Pictures" directoryloacted
         at the same level where the output file template is
         '''
         source_file_path = os.path.dirname(source_file_full_path) + "\\Pictures"
@@ -529,4 +546,5 @@ class TransferLogic():
         output_file_dir = os.path.dirname(output_file_full_path) + "\\Pictures"
         if source_file_path != output_file_dir:
             for file_name in file_names:
-                shutil.move(os.path.join(source_file_path, file_name),os.path.join(output_file_dir,file_name))
+                shutil.move(os.path.join(source_file_path, file_name),\
+                            os.path.join(output_file_dir, file_name))

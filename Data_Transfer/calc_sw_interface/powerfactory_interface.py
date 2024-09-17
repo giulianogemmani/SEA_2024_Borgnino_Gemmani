@@ -273,7 +273,20 @@ class PowerFactoryInterface():
             self.print("Get max element variable results failed!: " + str(e))
             self.print(traceback.format_exc()) 
      
-        
+    def get_diagram_pages(self, diagram_name = ''):
+        '''
+        function getting a plot diagram of the given name 
+        '''
+        try:           
+            graphic_board = self.app.GetGraphicsBoard()
+            # get VI pages
+            pages_list = graphic_board.GetContents(diagram_name + '*.SetVipage')
+            if len(pages_list) == 0:
+                pages_list = graphic_board.GetContents(diagram_name + '*.GrpPage')
+            return pages_list
+        except Exception as e:
+            self.print("Get diagram pages failed!: " + str(e))
+            self.print(traceback.format_exc())       
 #=========================================================================
 # Is Methods
 #=========================================================================

@@ -1586,11 +1586,10 @@ class PowerFactoryInterface():
         except Exception as e:
             self.print("Get SHC sweep shc object failed!: " + str(e))
             self.print(traceback.format_exc())
-      
-      
+            
     def get_diagram_pages(self, diagram_name = ''):
         '''
-        function creating a time distance diagram of the given name 
+        function getting a plot diagram of the given name 
         '''
         try:           
             graphic_board = self.app.GetGraphicsBoard()
