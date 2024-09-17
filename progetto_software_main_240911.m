@@ -43,7 +43,7 @@ for i=1:length(scopeBlocks)
     end
     parts = strsplit(resultStr, '/');
     firstpart=strjoin(parts,'_');
-    fileName = strcat(firstpart,'_',scopename,'.emf');
+    fileName = strcat(firstpart,'_',scopename,'.png');
     ImagePath=fullfile(saveFolder,fileName);
     %saveas(figureHandle,fileName);
     saveas(figureHandle,ImagePath)

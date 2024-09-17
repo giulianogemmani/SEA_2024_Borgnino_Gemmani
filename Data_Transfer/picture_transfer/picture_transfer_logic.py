@@ -210,7 +210,7 @@ class TransferLogic():
         #just second step
 #         self.add_wmfs_in_word(word_file_name = window.results_file_name.GetValue(),\
 #                              wmf_path = picture_dir_path)
-#         self.add_emfs_in_word(word_file_name=window.results_file_name.GetValue(), \
+#         self.add_symulink_pictures_in_word(word_file_name=window.results_file_name.GetValue(), \
 #                              emf_path=picture_dir_path)
 #         sys.exit()
         # go throw all study cases
@@ -241,8 +241,8 @@ class TransferLogic():
         self.add_wmfs_in_word(word_file_name=window.results_file_name.GetValue(), \
                              wmf_path=picture_dir_path)
         # here the pictures coming from Matlab
-        self.add_emfs_in_word(word_file_name=window.results_file_name.GetValue(), \
-                             emf_path=picture_dir_path)
+        self.add_symulink_pictures_in_word(word_file_name=window.results_file_name.GetValue(), \
+                             picture_path=picture_dir_path)
         #=======================================================================
         try:
             if self.output_detail >= OutputDetail.NORMAL:
@@ -392,13 +392,12 @@ class TransferLogic():
                         doc.Paragraphs(i + 1).Range.Text = ""
                         inlineshapes = doc.Paragraphs(i + 1).Range.Words(1).InlineShapes
                         new_picture = inlineshapes.AddPicture\
-                        ('"'+wmf_path + '\\' + wmf_info[0] + '\\' + wmf_info[1] + '.wmf"', \
-                        doc.Paragraphs(i + 2).Range)
-                        shape = inlineshapes.Item(1).ConvertToShape()
+                        ('"'+wmf_path + '\\' + wmf_info[0] + '\\' + wmf_info[1] + '.png"')
+                       
+                        #shape = inlineshapes.Item(1).ConvertToShape()
                         if two_pictures == True:
                             self.new_picture2 = inlineshapes.AddPicture\
-                            ('"'+wmf_path + '\\' + wmf_info2[0] + '\\' + wmf_info2[1] \
-                             + '.wmf"', doc.Paragraphs(i + 2).Range)         
+                            ('"'+wmf_path + '\\' + wmf_info2[0] + '\\' + wmf_info2[1])         
                             self.shape2 = inlineshapes.Item(1).ConvertToShape()      
                         # magic numbers to crop the picture from the original PF wmf
                         # at home big screen 210/290
@@ -440,10 +439,10 @@ class TransferLogic():
             doc.SaveAs(word_file_name.replace(".docx", " with pictures.docx"))
 
     
-    def add_emfs_in_word(self, word_file_name, emf_path):
+    def add_symulink_pictures_in_word(self, word_file_name, picture_path):
         '''
-        replace inside the given word file all the tags with the relevant emf 
-        pictures found in the given emf_path
+        replace inside the given word file all the tags with the relevant symulink 
+        pictures found in the given picture_path
         this is the code to import the matlab pictures, the approch is not the 
         same used for PF: there are no study cases and all pictures are together 
         '''
@@ -479,6 +478,7 @@ class TransferLogic():
                                                         len(picture_end_tag))
                     wmf_info2 = paragraph[start_index2:end_index2].split(':')
                     two_pictures = False
+                    ext = '.emf'
                     if end_index2 > 0:
                         two_pictures = True
                     try:
@@ -486,15 +486,13 @@ class TransferLogic():
                             self.interface.print("Transfering " + wmf_info[0])
                         doc.Paragraphs(i + 1).Range.Text = ""
                         inlineshapes = doc.Paragraphs(i + 1).Range.Words(1).InlineShapes
-                        new_file = emf_path + '\\' + wmf_info[0] + '.emf'
+                        new_file = picture_path + '\\' + wmf_info[0] + ext
                         new_picture = inlineshapes.AddPicture\
-                        ( emf_path + '\\' + wmf_info[0] + '.emf', \
-                        doc.Paragraphs(i + 2).Range)
+                        ( picture_path + '\\' + wmf_info[0] + ext)
                         shape = inlineshapes.Item(1).ConvertToShape()
                         if two_pictures == True:
                             self.new_picture2 = inlineshapes.AddPicture\
-                            (emf_path + '\\' + wmf_info2[0] + '.emf',\
-                              doc.Paragraphs(i + 2).Range)         
+                            (picture_path + '\\' + wmf_info2[0] + ext)
                             self.shape2 = inlineshapes.Item(1).ConvertToShape()      
                         # magic numbers to crop the picture from the original PF wmf
                         # at home big screen 210/290
@@ -505,17 +503,17 @@ class TransferLogic():
                             self.new_picture2.PictureFormat.CropRight = 210 # 5 #210 #170 #250
                         # new_picture.ScaleWidth = 87
                         # new_picture.ScaleHeight = 68
-                        new_picture.ScaleWidth = wmf_info[1] if len(wmf_info) > 2 else 51.5
-                        new_picture.ScaleHeight = wmf_info[2] if len(wmf_info) > 3 else 40 
+                        new_picture.ScaleWidth = wmf_info[1] if len(wmf_info) > 1 else 51.5
+                        new_picture.ScaleHeight = wmf_info[2] if len(wmf_info) > 2 else 40 
                         if two_pictures == True:
-                            self.new_picture2.ScaleWidth = wmf_info2[1] if len(wmf_info2) > 2 else 51.5
-                            self.new_picture2.ScaleHeight = wmf_info2[2] if len(wmf_info2) > 3 else 40                      
+                            self.new_picture2.ScaleWidth = wmf_info2[1] if len(wmf_info2) > 1 else 51.5
+                            self.new_picture2.ScaleHeight = wmf_info2[2] if len(wmf_info2) > 2 else 40                      
                         if two_pictures == True:
                             shape.WrapFormat.Type = 3 #6
                             self.shape2.WrapFormat.Type = 3 
                         else:
                             shape.WrapFormat.Type = 4   # 4 wdWrapFront
-                        shape.WrapFormat.AllowOverlap = True  # False
+                        shape.WrapFormat.AllowOverlap = False
                         shape.Left = word.CentimetersToPoints(wmf_info[3] \
                                                     if len(wmf_info) > 4 else 0.001)
                         shape.Top = word.CentimetersToPoints(wmf_info[4]\
@@ -527,8 +525,8 @@ class TransferLogic():
                                                     if len(wmf_info2) > 5 else 0.01)
                         emf_added = True
                     except Exception as e:
-                        self.interface.print("ERROR: " + emf_path + '\\' + \
-                        wmf_info[0] + '.emf' + " not found!")
+                        self.interface.print("ERROR: " + picture_path + '\\' + \
+                        wmf_info[0] + ext + " not found!")
             except Exception as e:
                 self.interface.print("ERROR: at doc line " + str(i) + "(of" + \
                                      str(doc.Paragraphs.Count) + ")")
