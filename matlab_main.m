@@ -1,13 +1,26 @@
-% multiple scopes
+function rsl=matlab_main(modelname)
+%modelname = 'PPC_scheme_04072024_a'
+% Define the folder where images will be saved
+fullFilePath=mfilename('fullpath');
+currentFileDirectory=fileparts(fullFilePath);
+% attach a subdirectory to the current file directory
+newDirectory=fullfile(currentFileDirectory,'Pictures');
+saveFolder=newDirectory;
+% Create the folder if it doesn't exist
+if ~exist(saveFolder,'dir')
+    mkdir(saveFolder);
+end
 
-open_system('PPC_scheme_04072024_a');
-sim('PPC_scheme_04072024_a');
-model = 'PPC_scheme_04072024_a';
+modelnameStr=convertCharsToStrings(modelname);
+open_system(modelnameStr);
+sim(modelnameStr);
+model = modelnameStr;
 scopeBlocks = find_system(model, 'BlockType', 'Scope');
 singlescope = scopeBlocks{1};
 allFigures = findall(0, 'Type', 'Figure');
 clear allFigures;
 allFigures = findall(0, 'Type', 'Figure');
+
 for i=1:length(scopeBlocks)
     open_system(scopeBlocks{i});
     % Retrieve the handle of the Scope block
@@ -31,9 +44,34 @@ for i=1:length(scopeBlocks)
     parts = strsplit(resultStr, '/');
     firstpart=strjoin(parts,'_');
     fileName = strcat(firstpart,'_',scopename,'.emf');
-    saveas(figureHandle,fileName);
+    ImagePath=fullfile(saveFolder,fileName);
+    %saveas(figureHandle,fileName);
+    saveas(figureHandle,ImagePath)
 end
+rsl=0
+
+%% CLOSING ALL FIGURES
+clc
+close all
+
+%% CLOSE ALL SCOPES
+shh = get(0,'ShowHiddenHandles');
+set(0,'ShowHiddenHandles','On');
+hscope = findobj(0,'Type','Figure','Tag','SIMULINK_SIMSCOPE_FIGURE');
+close(hscope);
+set(0,'ShowHiddenHandles',shh);
+
+%% Close model
+
+close_system(model, 0); % Close the system without saving changes
+
+end
+
+
+
+
     
+
 
 
 
