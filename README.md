@@ -1,4 +1,4 @@
-# SEA_2024_Borgnino_Gemmani
+# SEA_2024_Borgnino_Gemmani, DTTR (Data Transfer To Report)
  
 ## **Repository's struture**:
  - Deliverable 1: RASD 
