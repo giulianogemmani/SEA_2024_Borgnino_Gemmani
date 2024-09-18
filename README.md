@@ -31,5 +31,5 @@ There User should create a Template_doc as specified inside the documentation. I
 
 ### *matlab_runner.py*
 
-As explain in detail inside the documentation, this scripts aims to give an interaction between Python 3.11 and MATLAB/Simulink. 
+As explained in detail inside the documentation, this scripts aims to give an interaction between Python 3.11 and MATLAB/Simulink. 
 
