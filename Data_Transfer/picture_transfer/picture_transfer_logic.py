@@ -242,7 +242,7 @@ class TransferLogic():
                              wmf_path=picture_dir_path)
         # here the pictures coming from Matlab
         self.add_symulink_pictures_in_word(word_file_name=window.results_file_name.\
-                            replace(".docx", " with pictures.docx").GetValue(), \
+                            GetValue().replace(".docx", " with pictures.docx"), \
                              picture_path=picture_dir_path)
         #=======================================================================
         try:
@@ -435,8 +435,7 @@ class TransferLogic():
             except Exception as e:
                 self.interface.print("ERROR: at doc line " + str(i) + "(of" + \
                                      str(doc.Paragraphs.Count) + ")")
-        if wmf_added:
-            doc.SaveAs(word_file_name.replace(".docx", " with pictures.docx"))
+        doc.SaveAs(word_file_name.replace(".docx", " with pictures.docx"))
 
     
     def add_symulink_pictures_in_word(self, word_file_name, picture_path):
@@ -483,13 +482,14 @@ class TransferLogic():
                         two_pictures = True
                     try:
                         if self.output_detail >= OutputDetail.NORMAL:
-                            self.interface.print("Transfering " + wmf_info[0])
+                            print("Transfering " + wmf_info[0])
                         doc.Paragraphs(i + 1).Range.Text = ""
                         inlineshapes = doc.Paragraphs(i + 1).Range.Words(1).InlineShapes
                         new_file = picture_path + '\\' + wmf_info[0] + ext
                         new_picture = inlineshapes.AddPicture\
                         ( picture_path + '\\' + wmf_info[0] + ext)
                         shape = inlineshapes.Item(1).ConvertToShape()
+                
                         if two_pictures == True:
                             self.new_picture2 = inlineshapes.AddPicture\
                             (picture_path + '\\' + wmf_info2[0] + ext)
@@ -528,7 +528,7 @@ class TransferLogic():
                         self.interface.print("ERROR: " + picture_path + '\\' + \
                         wmf_info[0] + ext + " not found!")
             except Exception as e:
-                self.interface.print("ERROR: at doc line " + str(i) + "(of" + \
+                print("ERROR: at doc line " + str(i) + "(of" + \
                                      str(doc.Paragraphs.Count) + ")")
         if emf_added:
             doc.SaveAs(word_file_name.replace(".docx", " with pictures.docx"))

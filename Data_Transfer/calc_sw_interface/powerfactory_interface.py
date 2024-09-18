@@ -527,6 +527,8 @@ class PowerFactoryInterface():
         if the self.output_file variable has been set
         '''
         self.app.PrintPlain(string_to_print)
+        #additional code to  print the same msg also in the command window
+        print(string_to_print)
         if self.output_file != None:
             self.output_file.write(string_to_print + '\n')
             
