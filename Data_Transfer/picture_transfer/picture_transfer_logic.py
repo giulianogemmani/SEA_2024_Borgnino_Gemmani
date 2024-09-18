@@ -241,7 +241,8 @@ class TransferLogic():
         self.add_wmfs_in_word(word_file_name=window.results_file_name.GetValue(), \
                              wmf_path=picture_dir_path)
         # here the pictures coming from Matlab
-        self.add_symulink_pictures_in_word(word_file_name=window.results_file_name.GetValue(), \
+        self.add_symulink_pictures_in_word(word_file_name=window.results_file_name.\
+                            replace(".docx", " with pictures.docx").GetValue(), \
                              picture_path=picture_dir_path)
         #=======================================================================
         try:
@@ -391,10 +392,9 @@ class TransferLogic():
                                                  " -" + wmf_info[1])
                         doc.Paragraphs(i + 1).Range.Text = ""
                         inlineshapes = doc.Paragraphs(i + 1).Range.Words(1).InlineShapes
-                        new_picture = inlineshapes.AddPicture\
-                        ('"'+wmf_path + '\\' + wmf_info[0] + '\\' + wmf_info[1] + '.png"')
-                       
-                        #shape = inlineshapes.Item(1).ConvertToShape()
+                        path = wmf_path + '\\' + wmf_info[0] + '\\' + wmf_info[1] + '.wmf'
+                        new_picture = inlineshapes.AddPicture(path)
+                        shape = inlineshapes.Item(1).ConvertToShape()
                         if two_pictures == True:
                             self.new_picture2 = inlineshapes.AddPicture\
                             ('"'+wmf_path + '\\' + wmf_info2[0] + '\\' + wmf_info2[1])         
@@ -544,5 +544,8 @@ class TransferLogic():
         output_file_dir = os.path.dirname(output_file_full_path) + "\\Pictures"
         if source_file_path != output_file_dir:
             for file_name in file_names:
-                shutil.move(os.path.join(source_file_path, file_name),\
-                            os.path.join(output_file_dir, file_name))
+                try:
+                    shutil.move(os.path.join(source_file_path, file_name),\
+                                os.path.join(output_file_dir, file_name))
+                except:
+                    pass
