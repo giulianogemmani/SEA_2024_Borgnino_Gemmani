@@ -25,9 +25,9 @@ The first one is RASD (Requirement Analysis and Specification Docuement) which c
 This directory contains all the necessary for running our software, depending on the desired result that has to be achieved. The directory called *calc_sw_interface* is the one dedicated for transferring data from MS Excel and the other one called *picture_trasnsfer* is the one reltated to the image transferring from MATLAB/Simulink or from Power Factory. 
 Each of those collects all the code which has to be run through the GUI, which is stored inside directory named _ui_. 
 
-## Template document
+## Template document and Resource file
 
-There are three template document which shall be used as examples to test the software results. They are built depending on the desired resource sw, i.e. MS Excel, MATLAB/Simulink and Power Factory respectively. 
+There User should create a Template_doc as specified inside the documentation. In addition, he/she has to provide a resource Software from which Data will be transferred.
 
 ### *matlab_runner.py*
 
